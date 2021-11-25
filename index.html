@@ -1,0 +1,144 @@
+<!doctype html>
+<html data-theme="black">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel='stylesheet' href='https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css'/> 
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@1.16.2/dist/full.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+  <link type='text/css' rel='stylesheet' href='styles.css'/> 
+
+
+    <script src='script.js'></script> 
+  </head> 
+  <body class="text-yellow-300 font-serif">
+    <h2 class="font-serif font-bold text-xl text-center p-3">Basic Computer Simulator</h2> 
+    <p class="text-center">This webpage is a simulation of a simple computer processor as designed and specified by our group</p> 
+    <br>
+
+    <p class="text-center text-red-600">This simulator was originally written as a Java applet by <a class="underline hover:text-white" href='https://web.archive.org/web/20160323003713/http://cs.laurentian.ca/badams/'>Barry G. Adams</a> of <a class="underline hover:text-white" href='http://www.laurentian.ca/www/emenus/home.html'>Laurentian University</a>. Several features to the orignial simulator (<a class="underline hover:text-white" href='http://euler.vcsu.edu/curt.hill/Computer.html'>Description</a>, <a class="underline hover:text-white" href='computer.zip'>Source</a>) were added by <a class="underline hover:text-white" href='http://euler.vcsu.edu/curt.hill/'>Curt Hill</a> of <a class="underline hover:text-white" href='https://www.vcsu.edu'>Valley City State University</a>. Cay Horstmann reimplemented the simulator in JavaScript.</p> 
+    <br>
+    <p class="text-center text-red-600"> In addtion to the attribution above, we would like to make it clear that the <a class="underline hover:text-white" href="https://horstmann.com/simplecomputer/">A Simple Computer Simulator</a> site was used as the source code to create this one.  </p>
+    <br>
+    <p class="text-center">The following table shows the instruction set for this computer: </p> 
+
+
+
+<div class="divider"></div>
+
+<div class="bg-gold-100"> 
+    <table class="table-fixed">
+      <thead>
+      <tr>
+        <th class="w-1/3 text-3xl">Mnemonic</th> 
+        <th class="w-1/3 text-3xl">Opcode</th> 
+        <th class="w-1/3 text-3xl">Description</th> 
+      </tr>
+    </thead>
+    <tbody class="text-center text-white text-base font-mono">
+      <tr>
+        <td class="border-double border-4 border-white">SAVE n</td> 
+        <td class="border-double border-4 border-white">0xA0</td> 
+        <td class="border-double border-4 border-white">Store the contents of AX in memory location n</td> 
+      </tr> 
+      <tr>
+        <td class="border-double border-4 border-white">LOAD n</td> 
+        <td class="border-double border-4 border-white">0xA1</td> 
+        <td class="border-double border-4 border-white">Load AX with the contents of location n</td> 
+      </tr> 
+      <tr>
+        <td class="border-double border-4 border-white">ADDTHIS n</td> 
+        <td class="border-double border-4 border-white">0x2C</td> 
+        <td class="border-double border-4 border-white">Add n to AX (add immediate)</td> 
+      </tr> 
+      <tr>
+        <td class="border-double border-4 border-white">SUBTHIS n</td> 
+        <td class="border-double border-4 border-white">0x2D</td> 
+        <td class="border-double border-4 border-white">Subtract n from AX (subtract immediate)</td> 
+      </tr> 
+      <tr>
+        <td class="border-double border-4 border-white">ADDFROM n</td> 
+        <td class="border-double border-4 border-white">0x32</td> 
+        <td class="border-double border-4 border-white">Add the contents of location n to AX</td> 
+      </tr> 
+      <tr>
+        <td class="border-double border-4 border-white">SUBFROM n</td> 
+        <td class="border-double border-4 border-white">0x33</td> 
+        <td class="border-double border-4 border-white">Subtract the contents of location n from AX</td> 
+      </tr> 
+      <tr>
+        <td class="border-double border-4 border-white">MULFROM n</td> 
+        <td class="border-double border-4 border-white">0x34</td> 
+        <td class="border-double border-4 border-white">Multiply the contents AX by the contents of location n</td> 
+      </tr> 
+      <tr>
+        <td class="border-double border-4 border-white">DIVFROM n</td> 
+        <td class="border-double border-4 border-white">0x35</td> 
+        <td class="border-double border-4 border-white">Divide the contents of AX by the contents of location n</td> 
+      </tr> 
+      <tr>
+        <td class="border-double border-4 border-white">GOTO</td> 
+        <td class="border-double border-4 border-white">0x7F</td> 
+        <td class="border-double border-4 border-white">Jump to the instruction in location n if AX &gt; 0</td> 
+      </tr> 
+      <tr>
+        <td class="border-double border-4 border-white">GOTOIF0</td> 
+        <td class="border-double border-4 border-white">0x80</td> 
+        <td class="border-double border-4 border-white">Jump to the instruction in location n if AX = 0</td> 
+      </tr> 
+      <tr>
+        <td class="border-double border-4 border-white">STOP</td> 
+        <td class="border-double border-4 border-white">0x00</td> 
+        <td class="border-double border-4 border-white">Halts the execution</td> 
+      </tr> 
+    </tbody> 
+    </table> 
+  </div>
+
+<br>
+
+    <table class="text-s text-mono"  id='mem'></table> 
+    <div id='reg'>Registers: PC <input  id='pc' size='5'/> AX <input id='ax' size='5'/> </div> 
+    <div id='control'>
+      <button class = 'mx-1.5 my-1.5 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow' id='run'>Run</button> 
+      <button class = 'mx-1.5 my-1.5 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow' id='stop'>Stop</button> 
+      <button class = 'mx-1.5 my-1.5 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow' id='step'>Step</button> Delay <input id='delay' value='500' size='5'/> 
+    </div> 
+
+<br>
+
+<h4 class="text-red-600 text-mono text-3xl">Examples</h4>
+
+<br>
+    <div class="border-4 border-dotted border-white flex">
+      <div class="w-1/2">
+      <p>
+        <h2 class="text-xl text-white" >For loop in C: </h2>
+        int a[5] = {1, 2, 3, 4, 5}; <br>
+        int sum = 0; <br>
+        for (int i = 0; i < 5, i++) <br>
+        sum += a[i];
+      </p>
+    </div>
+    <div id='samples' class="w-1/2 self-center py-3 ">
+      <button id='sample2' class="btn-wide btn-secondary p-4 font-mono">Set Up
+      </button>
+    </div>
+  </div>
+<br>
+    <div class="border-4 border-dotted border-white flex py-3 px-2">
+      <div class="w-1/2">
+      <p>
+        <h2 class="text-2xl text-white self-center" >Count to 5</h2>
+      </p>
+    </div>
+    <div id='samples1' class="w-1/2 self-center">
+      <button id='sample1' class="btn-wide btn-secondary p-4 font-mono">Set Up
+      </button>
+    </div>
+  </div>
+<br>
+</div>
+
+  </body> 
+</html>
